@@ -14,14 +14,14 @@ RUN apt-get update -y && \
 RUN ln -snf /bin/bash /bin/sh && \
     apt-get install -y redis-server supervisor git openssh-server
 RUN cd /opt/ && \
-    git clone https://github.com/schmalle/elasticpot.git
+    git clone https://github.com/schmalle/ElasticPot.git
 
 # Setup user, groups and configs
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN addgroup --gid 2000 tpot && \
     adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
     # This is only needed to download all needed libraries for grails 2.5.3
-    cd /opt/elasticpot && \
+    cd /opt/ElasticPot && \
     ./gradlew war
 
 # Clean up
@@ -30,5 +30,5 @@ RUN apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Start ElasticPot
-WORKDIR /opt/elasticpot/
+WORKDIR /opt/ElasticPot/
 CMD ["/usr/bin/supervisord"]

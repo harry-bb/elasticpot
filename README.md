@@ -10,4 +10,3 @@ The Dockerfile contains the blueprint for the dockerized elasticpot and will be 
 
 
 The supervisord.conf is used to start elasticpot under supervision of supervisord.
-´

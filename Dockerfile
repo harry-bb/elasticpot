@@ -1,34 +1,32 @@
-# ElasticPot Dockerfile by MS/MO
+# ElasticPotPY Dockerfile by MO & MS
 #
-# VERSION 16.03.1
-FROM java:openjdk-8
+# VERSION 16.03.2
+FROM ubuntu:14.04.3
 MAINTAINER MS
 
-# Setup env and apt
 ENV DEBIAN_FRONTEND noninteractive
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-RUN apt-get update -y && \
-    apt-get dist-upgrade -y
 
-# Get and install packages
-RUN ln -snf /bin/bash /bin/sh && \
-    apt-get install -y redis-server supervisor git openssh-server
-RUN cd /opt/ && \
-    git clone https://github.com/schmalle/ElasticPot.git
+EXPOSE 9200
+
+# Setup apt
+RUN ln -snf /bin/bash /bin/sh && apt-get update -y && apt-get upgrade -y
+
+# Install packages
+RUN apt-get install -y python python-setuptools supervisor git
+RUN easy_install bottle requests configparser
 
 # Setup user, groups and configs
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN addgroup --gid 2000 tpot && \
-    adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
-    # This is only needed to download all needed libraries for grails 2.5.3
-    cd /opt/ElasticPot && \
-    ./gradlew war
+    adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot
+
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Clean up
-RUN apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Start ElasticPot
-WORKDIR /opt/ElasticPot/
+WORKDIR /opt
+RUN git clone https://github.com/schmalle/ElasticpotPY.git
+
+WORKDIR /opt/ElasticpotPY
+
 CMD ["/usr/bin/supervisord"]

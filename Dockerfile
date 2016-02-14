@@ -13,7 +13,7 @@ RUN ln -snf /bin/bash /bin/sh && \
 
 # Install packages
 RUN apt-get install -y python python-setuptools supervisor git && \
-    easy_install bottle requests configparser && \
+    easy_install bottle requests configparser datetime && \
     cd /opt/ && git clone https://github.com/schmalle/ElasticpotPY.git
 
 # Setup user, groups and configs

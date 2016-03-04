@@ -1,7 +1,7 @@
 # ElasticPotPY Dockerfile by MO & MS
 #
-# VERSION 16.03.3
-FROM ubuntu:14.04.3
+# VERSION 16.03.4
+FROM ubuntu:14.04.4
 MAINTAINER MS
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -25,4 +25,5 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-CMD ["/usr/bin/supervisord"]
+# Start elasticpot
+CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]

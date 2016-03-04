@@ -8,5 +8,8 @@ This dockerized version is part of the T-Pot community honeypot of Deutsche Tele
 
 The Dockerfile contains the blueprint for the dockerized elasticpot and will be used to setup the docker image.
 
-
 The supervisord.conf is used to start elasticpot under supervision of supervisord.
+
+# ElasticPot Dashboard
+
+![ElasticPot Dashboard](https://raw.githubusercontent.com/dtag-dev-sec/elasticpot/master/doc/dashboard.png)

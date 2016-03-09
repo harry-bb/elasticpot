@@ -1,7 +1,7 @@
 # dockerized elasticpot
 
 
-elasticpot is a simple elastic search honeypot.
+[elasticpot](https://github.com/schmalle/ElasticPot) elasticpot is a simple elastic search honeypot.
 
 This repository contains the necessary files to create a *dockerized* version of elasticpot.
 

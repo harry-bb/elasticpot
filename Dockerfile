@@ -1,7 +1,7 @@
 # ElasticPotPY Dockerfile by MO & MS
 #
 # VERSION 16.10
-FROM debian:jessie
+FROM debian:jessie-slim
 MAINTAINER MS
 
 ENV DEBIAN_FRONTEND noninteractive

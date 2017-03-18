@@ -23,8 +23,6 @@ RUN ln -snf /bin/bash /bin/sh && \
     addgroup --gid 2000 tpot && \
     adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
     mv /root/dist/supervisord.conf /etc/supervisor/conf.d/ && \
-    mkdir -p /data/ews/conf/ && \
-    mv /root/dist/ews.cfg /data/ews/conf/ && \
 
 # Clean up
     rm -rf /root/* && \

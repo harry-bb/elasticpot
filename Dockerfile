@@ -15,14 +15,16 @@ RUN ln -snf /bin/bash /bin/sh && \
     apt-get upgrade -y && \
 
 # Install packages
-    apt-get install -y python python-setuptools supervisor git && \
-    easy_install bottle requests configparser datetime && \
+    apt-get install -y python3 python3-setuptools supervisor git && \
+    easy_install3 bottle requests configparser datetime && \
     cd /opt/ && git clone https://github.com/schmalle/ElasticpotPY.git && \
 
 # Setup user, groups and configs
     addgroup --gid 2000 tpot && \
     adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
+    mkdir -p /data/ews/conf/ && \
     mv /root/dist/supervisord.conf /etc/supervisor/conf.d/ && \
+    mv /root/dist/ews.cfg /data/ews/conf/ && \
 
 # Clean up
     rm -rf /root/* && \

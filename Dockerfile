@@ -22,9 +22,8 @@ RUN ln -snf /bin/bash /bin/sh && \
 # Setup user, groups and configs
     addgroup --gid 2000 tpot && \
     adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
-    mkdir -p /data/ews/conf/ && \
     mv /root/dist/supervisord.conf /etc/supervisor/conf.d/ && \
-    mv /root/dist/ews.cfg /data/ews/conf/ && \
+    mv /root/dist/elasticpot.cfg /opt/ElasticpotPY/ && \
 
 # Clean up
     rm -rf /root/* && \

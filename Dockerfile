@@ -1,35 +1,28 @@
-# ElasticPotPY Dockerfile by MO & MS
-#
-# VERSION 17.06
-FROM debian:jessie-slim
-MAINTAINER MS
-
-ENV DEBIAN_FRONTEND noninteractive
+FROM alpine
+MAINTAINER MS/MO
 
 # Include dist
 ADD dist/ /root/dist/
 
-# Setup apt
-RUN ln -snf /bin/bash /bin/sh && \
-    apt-get update -y && \
-    apt-get upgrade -y && \
-
 # Install packages
-    apt-get install -y python3 python3-setuptools supervisor git && \
-    easy_install3 bottle requests configparser datetime && \
-    cd /opt/ && git clone https://github.com/schmalle/ElasticpotPY.git && \
+RUN apk -U add bash python3 git && \
+    pip3 install --upgrade pip && \
+    pip3 install bottle requests configparser datetime && \
+    mkdir -p /opt && \
+    cd /opt/ && \
+    git clone https://github.com/schmalle/ElasticpotPY.git && \
 
 # Setup user, groups and configs
-    addgroup --gid 2000 tpot && \
-    adduser --system --no-create-home --shell /bin/bash --uid 2000 --disabled-password --disabled-login --gid 2000 tpot && \
-    mv /root/dist/supervisord.conf /etc/supervisor/conf.d/ && \
+    addgroup -g 2000 elasticpot && \
+    adduser -S -H -s /bin/bash -u 2000 -D -g 2000 elasticpot && \
     mv /root/dist/elasticpot.cfg /opt/ElasticpotPY/ && \
 
 # Clean up
+    apk del git && \
     rm -rf /root/* && \
-    apt-get purge git -y && \
-    apt-get autoremove -y && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/cache/apk/*
 
 # Start elasticpot
-CMD ["/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
+USER elasticpot
+WORKDIR /opt/ElasticpotPY/
+CMD ["/usr/bin/python3","main.py"]

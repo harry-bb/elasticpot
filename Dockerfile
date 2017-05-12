@@ -5,7 +5,8 @@ MAINTAINER MS/MO
 ADD dist/ /root/dist/
 
 # Install packages
-RUN apk -U add bash python3 git && \
+RUN apk -U upgrade && \ 
+    apk add bash python3 git && \
     pip3 install --upgrade pip && \
     pip3 install bottle requests configparser datetime && \
     mkdir -p /opt && \

@@ -17,6 +17,7 @@ RUN apk -U upgrade && \
     addgroup -g 2000 elasticpot && \
     adduser -S -H -s /bin/bash -u 2000 -D -g 2000 elasticpot && \
     mv /root/dist/elasticpot.cfg /opt/ElasticpotPY/ && \
+    mkdir /opt/ElasticpotPY/log && \
 
 # Clean up
     apk del git && \

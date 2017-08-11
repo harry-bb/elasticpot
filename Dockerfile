@@ -15,7 +15,7 @@ RUN ln -snf /bin/bash /bin/sh && \
     apt-get upgrade -y && \
 
 # Install packages
-    apt-get install -y python python-setuptools supervisor git && \
+    apt-get install -y nano python python-setuptools supervisor git && \
     easy_install bottle requests configparser datetime && \
     cd /opt/ && git clone https://github.com/schmalle/ElasticpotPY.git && \
 
